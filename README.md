@@ -22,8 +22,12 @@ EduCore is a responsive school management system built with HTML, CSS, and Vanil
 ## 📦 How to Run
 Just open `index.html` in your browser.
 
+##  Repository link
+https://github.com/japhet996sunday-cell/educore-school-portal
+
+
 ## 🌐 Live Demo
-[]
+[https://japhet996sunday-cell.github.io/educore-school-portal/]
 
 ## 👨‍💻 Author
 Japhet Sunday
