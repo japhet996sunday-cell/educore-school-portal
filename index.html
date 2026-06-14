@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EduCore — School Management Portal</title>
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <!-- Google Fonts: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- ============================================================
+       SIDEBAR OVERLAY (mobile backdrop)
+  ============================================================ -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- ============================================================
+       SIDEBAR NAVIGATION
+  ============================================================ -->
+  <aside class="sidebar" id="sidebar">
+
+    <!-- Logo / Brand -->
+    <div class="sidebar-brand">
+      <div class="brand-icon">
+        <i class="bi bi-mortarboard-fill"></i>
+      </div>
+      <div class="brand-text">
+        <span class="brand-name">EduCore</span>
+        <span class="brand-tagline">School Portal</span>
+      </div>
+    </div>
+
+    <!-- Navigation Menu -->
+    <nav class="sidebar-nav">
+      <ul class="nav-list">
+
+        <li class="nav-item">
+          <a href="#" class="nav-link active" data-section="dashboard">
+            <i class="bi bi-grid-1x2-fill nav-icon"></i>
+            <span class="nav-label">Dashboard</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="#" class="nav-link" data-section="students">
+            <i class="bi bi-people-fill nav-icon"></i>
+            <span class="nav-label">Students</span>
+            <span class="nav-badge" id="studentBadge">0</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="#" class="nav-link" data-section="teachers">
+            <i class="bi bi-person-workspace nav-icon"></i>
+            <span class="nav-label">Teachers</span>
+            <span class="nav-badge" id="teacherBadge">0</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="#" class="nav-link" data-section="courses">
+            <i class="bi bi-journal-bookmark-fill nav-icon"></i>
+            <span class="nav-label">Courses</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="#" class="nav-link" data-section="results">
+            <i class="bi bi-bar-chart-fill nav-icon"></i>
+            <span class="nav-label">Results</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="#" class="nav-link" data-section="attendance">
+            <i class="bi bi-calendar-check-fill nav-icon"></i>
+            <span class="nav-label">Attendance</span>
+          </a>
+        </li>
+
+        <li class="nav-divider"></li>
+
+        <li class="nav-item">
+          <a href="#" class="nav-link" data-section="settings">
+            <i class="bi bi-gear-fill nav-icon"></i>
+            <span class="nav-label">Settings</span>
+          </a>
+        </li>
+
+      </ul>
+    </nav>
+
+    <!-- Sidebar Footer -->
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="user-avatar-sm">A</div>
+        <div class="user-info-sm">
+          <span class="user-name-sm">Admin User</span>
+          <span class="user-role-sm">Super Admin</span>
+        </div>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- ============================================================
+       MAIN CONTENT WRAPPER
+  ============================================================ -->
+  <div class="main-wrapper" id="mainWrapper">
+
+    <!-- =================== TOP NAVBAR =================== -->
+    <header class="top-navbar">
+
+      <!-- Left: Hamburger + Page Title -->
+      <div class="navbar-left">
+        <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle sidebar">
+          <i class="bi bi-list"></i>
+        </button>
+        <div class="page-title" id="pageTitle">
+          <h5>Dashboard</h5>
+          <small>Welcome back, Admin</small>
+        </div>
+      </div>
+
+      <!-- Right: Search, Notifications, Profile -->
+      <div class="navbar-right">
+
+        <!-- Search -->
+        <div class="navbar-search">
+          <i class="bi bi-search search-icon"></i>
+          <input type="text" class="search-input" id="globalSearch" placeholder="Search anything..." />
+        </div>
+
+        <!-- Notification Bell -->
+        <button class="icon-btn" id="notifBtn" aria-label="Notifications">
+          <i class="bi bi-bell-fill"></i>
+          <span class="notif-dot"></span>
+        </button>
+
+        <!-- User Profile -->
+        <div class="navbar-profile dropdown">
+          <button class="profile-btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            <div class="profile-avatar">A</div>
+            <span class="profile-name d-none d-md-block">Admin</span>
+            <i class="bi bi-chevron-down d-none d-md-block chevron-icon"></i>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end profile-dropdown">
+            <li class="dropdown-header">
+              <strong>Admin User</strong>
+              <small>admin@educore.ng</small>
+            </li>
+            <li><hr class="dropdown-divider" /></li>
+            <li><a class="dropdown-item" href="#" data-section="settings"><i class="bi bi-person-circle me-2"></i>My Profile</a></li>
+            <li><a class="dropdown-item" href="#" data-section="settings"><i class="bi bi-gear me-2"></i>Settings</a></li>
+            <li><hr class="dropdown-divider" /></li>
+            <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-box-arrow-right me-2"></i>Sign Out</a></li>
+          </ul>
+        </div>
+
+      </div>
+    </header>
+
+    <!-- =================== CONTENT AREA =================== -->
+    <main class="content-area">
+
+      <!-- Toast Notification Container -->
+      <div class="toast-container position-fixed bottom-0 end-0 p-3" id="toastContainer" style="z-index: 9999;"></div>
+
+      <!-- ===================================================
+           SECTION: DASHBOARD
+      =================================================== -->
+      <section id="section-dashboard" class="portal-section active">
+
+        <!-- Stat Cards Row -->
+        <div class="row g-4 mb-4">
+
+          <div class="col-12 col-sm-6 col-xl-3">
+            <div class="stat-card stat-card--indigo">
+              <div class="stat-card__body">
+                <div class="stat-card__info">
+                  <p class="stat-card__label">Total Students</p>
+                  <h2 class="stat-card__value" id="dashStudents">0</h2>
+                  <span class="stat-card__trend">
+                    <i class="bi bi-arrow-up-right"></i> Enrolled
+                  </span>
+                </div>
+                <div class="stat-card__icon">
+                  <i class="bi bi-people-fill"></i>
+                </div>
+              </div>
+              <div class="stat-card__footer">
+                <a href="#" data-section="students">View all students <i class="bi bi-arrow-right"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-6 col-xl-3">
+            <div class="stat-card stat-card--teal">
+              <div class="stat-card__body">
+                <div class="stat-card__info">
+                  <p class="stat-card__label">Total Teachers</p>
+                  <h2 class="stat-card__value" id="dashTeachers">0</h2>
+                  <span class="stat-card__trend">
+                    <i class="bi bi-arrow-up-right"></i> Faculty
+                  </span>
+                </div>
+                <div class="stat-card__icon">
+                  <i class="bi bi-person-workspace"></i>
+                </div>
+              </div>
+              <div class="stat-card__footer">
+                <a href="#" data-section="teachers">View all teachers <i class="bi bi-arrow-right"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-6 col-xl-3">
+            <div class="stat-card stat-card--amber">
+              <div class="stat-card__body">
+                <div class="stat-card__info">
+                  <p class="stat-card__label">Total Courses</p>
+                  <h2 class="stat-card__value" id="dashCourses">0</h2>
+                  <span class="stat-card__trend">
+                    <i class="bi bi-arrow-up-right"></i> Active
+                  </span>
+                </div>
+                <div class="stat-card__icon">
+                  <i class="bi bi-journal-bookmark-fill"></i>
+                </div>
+              </div>
+              <div class="stat-card__footer">
+                <a href="#" data-section="courses">View all courses <i class="bi bi-arrow-right"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-6 col-xl-3">
+            <div class="stat-card stat-card--rose">
+              <div class="stat-card__body">
+                <div class="stat-card__info">
+                  <p class="stat-card__label">Total Results</p>
+                  <h2 class="stat-card__value" id="dashResults">0</h2>
+                  <span class="stat-card__trend">
+                    <i class="bi bi-arrow-up-right"></i> Recorded
+                  </span>
+                </div>
+                <div class="stat-card__icon">
+                  <i class="bi bi-bar-chart-fill"></i>
+                </div>
+              </div>
+              <div class="stat-card__footer">
+                <a href="#" data-section="results">View all results <i class="bi bi-arrow-right"></i></a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Quick Info Row -->
+        <div class="row g-4">
+
+          <!-- Recent Students -->
+          <div class="col-12 col-lg-7">
+            <div class="panel">
+              <div class="panel__header">
+                <h6 class="panel__title"><i class="bi bi-people me-2"></i>Recently Added Students</h6>
+                <a href="#" class="panel__link" data-section="students">View all</a>
+              </div>
+              <div class="panel__body">
+                <div class="table-responsive">
+                  <table class="table portal-table mb-0">
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Class</th>
+                        <th>Gender</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody id="recentStudentsTable">
+                      <tr>
+                        <td colspan="4" class="text-center text-muted py-4">
+                          <i class="bi bi-inbox fs-2 d-block mb-2"></i>No students yet
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Attendance Summary -->
+          <div class="col-12 col-lg-5">
+            <div class="panel">
+              <div class="panel__header">
+                <h6 class="panel__title"><i class="bi bi-calendar-check me-2"></i>Attendance Summary</h6>
+                <a href="#" class="panel__link" data-section="attendance">View all</a>
+              </div>
+              <div class="panel__body">
+                <div id="dashAttendanceSummary">
+                  <div class="attendance-donut-wrap">
+                    <div class="attendance-stat present-stat">
+                      <div class="attendance-stat__count" id="dashPresent">0</div>
+                      <div class="attendance-stat__label">Present</div>
+                    </div>
+                    <div class="attendance-divider"></div>
+                    <div class="attendance-stat absent-stat">
+                      <div class="attendance-stat__count" id="dashAbsent">0</div>
+                      <div class="attendance-stat__label">Absent</div>
+                    </div>
+                  </div>
+                  <div class="attendance-bar-wrap mt-3">
+                    <div class="d-flex justify-content-between mb-1">
+                      <small>Attendance Rate</small>
+                      <small id="dashAttRate">0%</small>
+                    </div>
+                    <div class="progress" style="height: 8px; border-radius: 10px;">
+                      <div class="progress-bar bg-success" id="dashAttBar" role="progressbar" style="width: 0%"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- ===================================================
+           SECTION: STUDENTS
+      =================================================== -->
+      <section id="section-students" class="portal-section">
+
+        <div class="section-toolbar">
+          <div class="toolbar-search">
+            <i class="bi bi-search"></i>
+            <input type="text" id="studentSearch" placeholder="Search students..." class="toolbar-input" />
+          </div>
+          <button class="btn btn-primary btn-add" data-bs-toggle="modal" data-bs-target="#studentModal" id="addStudentBtn">
+            <i class="bi bi-plus-lg me-1"></i> Add Student
+          </button>
+        </div>
+
+        <div class="panel mt-3">
+          <div class="panel__header">
+            <h6 class="panel__title"><i class="bi bi-people me-2"></i>Student Records</h6>
+            <span class="badge bg-primary-soft text-primary" id="studentCountBadge">0 students</span>
+          </div>
+          <div class="panel__body p-0">
+            <div class="table-responsive">
+              <table class="table portal-table mb-0">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Class</th>
+                    <th>Gender</th>
+                    <th>Phone</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="studentTableBody">
+                  <!-- populated by JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ===================================================
+           SECTION: TEACHERS
+      =================================================== -->
+      <section id="section-teachers" class="portal-section">
+
+        <div class="section-toolbar">
+          <div class="toolbar-search">
+            <i class="bi bi-search"></i>
+            <input type="text" id="teacherSearch" placeholder="Search teachers..." class="toolbar-input" />
+          </div>
+          <button class="btn btn-primary btn-add" data-bs-toggle="modal" data-bs-target="#teacherModal" id="addTeacherBtn">
+            <i class="bi bi-plus-lg me-1"></i> Add Teacher
+          </button>
+        </div>
+
+        <div class="panel mt-3">
+          <div class="panel__header">
+            <h6 class="panel__title"><i class="bi bi-person-workspace me-2"></i>Teacher Records</h6>
+            <span class="badge bg-teal-soft text-teal" id="teacherCountBadge">0 teachers</span>
+          </div>
+          <div class="panel__body p-0">
+            <div class="table-responsive">
+              <table class="table portal-table mb-0">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Subject</th>
+                    <th>Phone</th>
+                    <th>Qualification</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="teacherTableBody">
+                  <!-- populated by JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ===================================================
+           SECTION: COURSES
+      =================================================== -->
+      <section id="section-courses" class="portal-section">
+
+        <div class="section-toolbar">
+          <div class="toolbar-search">
+            <i class="bi bi-search"></i>
+            <input type="text" id="courseSearch" placeholder="Search courses..." class="toolbar-input" />
+          </div>
+          <button class="btn btn-primary btn-add" data-bs-toggle="modal" data-bs-target="#courseModal">
+            <i class="bi bi-plus-lg me-1"></i> Add Course
+          </button>
+        </div>
+
+        <div class="row g-4 mt-0" id="courseCardsGrid">
+          <!-- course cards populated by JS -->
+        </div>
+
+      </section>
+
+      <!-- ===================================================
+           SECTION: RESULTS
+      =================================================== -->
+      <section id="section-results" class="portal-section">
+
+        <div class="section-toolbar">
+          <div class="toolbar-search">
+            <i class="bi bi-search"></i>
+            <input type="text" id="resultSearch" placeholder="Search results..." class="toolbar-input" />
+          </div>
+          <button class="btn btn-primary btn-add" data-bs-toggle="modal" data-bs-target="#resultModal">
+            <i class="bi bi-plus-lg me-1"></i> Add Result
+          </button>
+        </div>
+
+        <div class="panel mt-3">
+          <div class="panel__header">
+            <h6 class="panel__title"><i class="bi bi-bar-chart me-2"></i>Academic Results</h6>
+            <span class="badge bg-rose-soft text-rose" id="resultCountBadge">0 records</span>
+          </div>
+          <div class="panel__body p-0">
+            <div class="table-responsive">
+              <table class="table portal-table mb-0">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Student Name</th>
+                    <th>Subject</th>
+                    <th>Score</th>
+                    <th>Grade</th>
+                    <th>Remark</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="resultTableBody">
+                  <!-- populated by JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ===================================================
+           SECTION: ATTENDANCE
+      =================================================== -->
+      <section id="section-attendance" class="portal-section">
+
+        <div class="row g-4 mb-4">
+          <div class="col-12 col-md-4">
+            <div class="att-summary-card att-summary-card--present">
+              <i class="bi bi-person-check-fill"></i>
+              <div>
+                <div class="att-count" id="totalPresent">0</div>
+                <div class="att-label">Present Today</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-4">
+            <div class="att-summary-card att-summary-card--absent">
+              <i class="bi bi-person-x-fill"></i>
+              <div>
+                <div class="att-count" id="totalAbsent">0</div>
+                <div class="att-label">Absent Today</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-4">
+            <div class="att-summary-card att-summary-card--rate">
+              <i class="bi bi-percent"></i>
+              <div>
+                <div class="att-count" id="attRate">0%</div>
+                <div class="att-label">Attendance Rate</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel__header">
+            <h6 class="panel__title"><i class="bi bi-calendar-check me-2"></i>Mark Attendance</h6>
+            <button class="btn btn-sm btn-outline-primary" id="resetAttendanceBtn">
+              <i class="bi bi-arrow-counterclockwise me-1"></i>Reset Today
+            </button>
+          </div>
+          <div class="panel__body p-0">
+            <div class="table-responsive">
+              <table class="table portal-table mb-0">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Student Name</th>
+                    <th>Class</th>
+                    <th>Status</th>
+                    <th>Mark Attendance</th>
+                  </tr>
+                </thead>
+                <tbody id="attendanceTableBody">
+                  <!-- populated by JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ===================================================
+           SECTION: SETTINGS
+      =================================================== -->
+      <section id="section-settings" class="portal-section">
+
+        <div class="row g-4">
+
+          <!-- Profile Card -->
+          <div class="col-12 col-md-5 col-xl-4">
+            <div class="panel profile-panel">
+              <div class="profile-panel__avatar">
+                <div class="profile-avatar-lg">A</div>
+                <h5 class="mt-3 mb-1">Admin User</h5>
+                <p class="text-muted mb-3">admin@educore.ng</p>
+                <span class="badge badge-admin">Super Admin</span>
+              </div>
+              <hr />
+              <ul class="profile-stats-list">
+                <li>
+                  <span><i class="bi bi-people me-2"></i>Students</span>
+                  <strong id="profileStudents">0</strong>
+                </li>
+                <li>
+                  <span><i class="bi bi-person-workspace me-2"></i>Teachers</span>
+                  <strong id="profileTeachers">0</strong>
+                </li>
+                <li>
+                  <span><i class="bi bi-journal-bookmark me-2"></i>Courses</span>
+                  <strong id="profileCourses">0</strong>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Settings Options -->
+          <div class="col-12 col-md-7 col-xl-8">
+
+            <!-- Appearance -->
+            <div class="panel mb-4">
+              <div class="panel__header">
+                <h6 class="panel__title"><i class="bi bi-palette me-2"></i>Appearance</h6>
+              </div>
+              <div class="panel__body">
+                <div class="settings-row">
+                  <div>
+                    <p class="settings-row__title">Dark Mode</p>
+                    <p class="settings-row__desc">Switch between light and dark interface</p>
+                  </div>
+                  <div class="form-check form-switch">
+                    <input class="form-check-input settings-toggle" type="checkbox" id="darkModeToggle" role="switch" />
+                  </div>
+                </div>
+
+                <hr />
+
+                <div class="settings-row">
+                  <div>
+                    <p class="settings-row__title">Compact Sidebar</p>
+                    <p class="settings-row__desc">Collapse sidebar to icon-only mode</p>
+                  </div>
+                  <div class="form-check form-switch">
+                    <input class="form-check-input settings-toggle" type="checkbox" id="compactSidebarToggle" role="switch" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- System Info -->
+            <div class="panel mb-4">
+              <div class="panel__header">
+                <h6 class="panel__title"><i class="bi bi-info-circle me-2"></i>System Information</h6>
+              </div>
+              <div class="panel__body">
+                <div class="sys-info-grid">
+                  <div class="sys-info-item">
+                    <span class="sys-info-label">System Name</span>
+                    <span class="sys-info-value">EduCore Portal</span>
+                  </div>
+                  <div class="sys-info-item">
+                    <span class="sys-info-label">Version</span>
+                    <span class="sys-info-value">v1.0.0</span>
+                  </div>
+                  <div class="sys-info-item">
+                    <span class="sys-info-label">Storage</span>
+                    <span class="sys-info-value">localStorage</span>
+                  </div>
+                  <div class="sys-info-item">
+                    <span class="sys-info-label">Built With</span>
+                    <span class="sys-info-value">HTML · CSS · JS · Bootstrap 5</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Danger Zone -->
+            <div class="panel panel--danger">
+              <div class="panel__header">
+                <h6 class="panel__title text-danger"><i class="bi bi-exclamation-triangle me-2"></i>Danger Zone</h6>
+              </div>
+              <div class="panel__body">
+                <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+                  <div>
+                    <p class="settings-row__title mb-1">Clear All Data</p>
+                    <p class="settings-row__desc mb-0">Permanently delete all records from localStorage</p>
+                  </div>
+                  <button class="btn btn-danger" id="clearDataBtn">
+                    <i class="bi bi-trash3 me-1"></i> Clear All Data
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ================================================================
+       MODALS
+  ================================================================ -->
+
+  <!-- ============ STUDENT MODAL ============ -->
+  <div class="modal fade" id="studentModal" tabindex="-1" aria-labelledby="studentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content portal-modal">
+        <div class="modal-header">
+          <h5 class="modal-title" id="studentModalLabel">
+            <i class="bi bi-person-plus me-2"></i>Add New Student
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="studentForm" novalidate>
+            <input type="hidden" id="studentId" />
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label">First Name <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="studentFirstName" required placeholder="e.g. Amina" />
+                <div class="invalid-feedback">First name is required.</div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Last Name <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="studentLastName" required placeholder="e.g. Bello" />
+                <div class="invalid-feedback">Last name is required.</div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Email Address <span class="text-danger">*</span></label>
+                <input type="email" class="form-control" id="studentEmail" required placeholder="e.g. amina@school.ng" />
+                <div class="invalid-feedback">A valid email is required.</div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Phone Number</label>
+                <input type="tel" class="form-control" id="studentPhone" placeholder="e.g. 08012345678" />
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">Class <span class="text-danger">*</span></label>
+                <select class="form-select" id="studentClass" required>
+                  <option value="">Select class</option>
+                  <option>JSS 1</option>
+                  <option>JSS 2</option>
+                  <option>JSS 3</option>
+                  <option>SS 1</option>
+                  <option>SS 2</option>
+                  <option>SS 3</option>
+                </select>
+                <div class="invalid-feedback">Please select a class.</div>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">Gender <span class="text-danger">*</span></label>
+                <select class="form-select" id="studentGender" required>
+                  <option value="">Select gender</option>
+                  <option>Male</option>
+                  <option>Female</option>
+                </select>
+                <div class="invalid-feedback">Please select a gender.</div>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">Status</label>
+                <select class="form-select" id="studentStatus">
+                  <option value="Active">Active</option>
+                  <option value="Inactive">Inactive</option>
+                </select>
+              </div>
+              <div class="col-12">
+                <label class="form-label">Address</label>
+                <textarea class="form-control" id="studentAddress" rows="2" placeholder="Student's home address"></textarea>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-ghost" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" id="saveStudentBtn">
+            <i class="bi bi-check2 me-1"></i>Save Student
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ TEACHER MODAL ============ -->
+  <div class="modal fade" id="teacherModal" tabindex="-1" aria-labelledby="teacherModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content portal-modal">
+        <div class="modal-header">
+          <h5 class="modal-title" id="teacherModalLabel">
+            <i class="bi bi-person-plus me-2"></i>Add New Teacher
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="teacherForm" novalidate>
+            <input type="hidden" id="teacherId" />
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label">First Name <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="teacherFirstName" required placeholder="e.g. Chidi" />
+                <div class="invalid-feedback">First name is required.</div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Last Name <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="teacherLastName" required placeholder="e.g. Okafor" />
+                <div class="invalid-feedback">Last name is required.</div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Email Address <span class="text-danger">*</span></label>
+                <input type="email" class="form-control" id="teacherEmail" required placeholder="e.g. chidi@school.ng" />
+                <div class="invalid-feedback">A valid email is required.</div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Phone Number</label>
+                <input type="tel" class="form-control" id="teacherPhone" placeholder="e.g. 08087654321" />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Subject Taught <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="teacherSubject" required placeholder="e.g. Mathematics" />
+                <div class="invalid-feedback">Subject is required.</div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Qualification</label>
+                <input type="text" class="form-control" id="teacherQualification" placeholder="e.g. B.Ed, M.Sc" />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Status</label>
+                <select class="form-select" id="teacherStatus">
+                  <option value="Active">Active</option>
+                  <option value="On Leave">On Leave</option>
+                  <option value="Inactive">Inactive</option>
+                </select>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-ghost" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" id="saveTeacherBtn">
+            <i class="bi bi-check2 me-1"></i>Save Teacher
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ COURSE MODAL ============ -->
+  <div class="modal fade" id="courseModal" tabindex="-1" aria-labelledby="courseModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content portal-modal">
+        <div class="modal-header">
+          <h5 class="modal-title" id="courseModalLabel">
+            <i class="bi bi-journal-plus me-2"></i>Add New Course
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="courseForm" novalidate>
+            <div class="row g-3">
+              <div class="col-12">
+                <label class="form-label">Course Title <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="courseTitle" required placeholder="e.g. Further Mathematics" />
+                <div class="invalid-feedback">Course title is required.</div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Course Code <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="courseCode" required placeholder="e.g. MTH201" />
+                <div class="invalid-feedback">Course code is required.</div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Department</label>
+                <input type="text" class="form-control" id="courseDept" placeholder="e.g. Science" />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Units / Credit</label>
+                <input type="number" class="form-control" id="courseUnits" placeholder="e.g. 3" min="1" max="6" />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Status</label>
+                <select class="form-select" id="courseStatus">
+                  <option>Active</option>
+                  <option>Inactive</option>
+                </select>
+              </div>
+              <div class="col-12">
+                <label class="form-label">Description</label>
+                <textarea class="form-control" id="courseDesc" rows="2" placeholder="Short description of the course"></textarea>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-ghost" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" id="saveCourseBtn">
+            <i class="bi bi-check2 me-1"></i>Save Course
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ RESULT MODAL ============ -->
+  <div class="modal fade" id="resultModal" tabindex="-1" aria-labelledby="resultModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content portal-modal">
+        <div class="modal-header">
+          <h5 class="modal-title" id="resultModalLabel">
+            <i class="bi bi-plus-circle me-2"></i>Add Result
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="resultForm" novalidate>
+            <input type="hidden" id="resultId" />
+            <div class="row g-3">
+              <div class="col-12">
+                <label class="form-label">Student Name <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="resultStudentName" required placeholder="e.g. Amina Bello" />
+                <div class="invalid-feedback">Student name is required.</div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Subject <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="resultSubject" required placeholder="e.g. Mathematics" />
+                <div class="invalid-feedback">Subject is required.</div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Score (0 – 100) <span class="text-danger">*</span></label>
+                <input type="number" class="form-control" id="resultScore" required min="0" max="100" placeholder="e.g. 78" />
+                <div class="invalid-feedback">Score must be between 0 and 100.</div>
+              </div>
+              <!-- Grade auto-calculated, displayed for user preview -->
+              <div class="col-12">
+                <div class="grade-preview" id="gradePreview">
+                  Enter a score to see the grade
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-ghost" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" id="saveResultBtn">
+            <i class="bi bi-check2 me-1"></i>Save Result
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ DELETE CONFIRM MODAL ============ -->
+  <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+      <div class="modal-content portal-modal">
+        <div class="modal-body text-center py-4">
+          <div class="delete-icon-wrap">
+            <i class="bi bi-trash3-fill"></i>
+          </div>
+          <h5 class="mt-3 mb-2">Delete Record?</h5>
+          <p class="text-muted mb-4" id="deleteModalMsg">This action cannot be undone.</p>
+          <div class="d-flex gap-2 justify-content-center">
+            <button class="btn btn-ghost flex-fill" data-bs-dismiss="modal">Cancel</button>
+            <button class="btn btn-danger flex-fill" id="confirmDeleteBtn">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap 5 JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Custom JS -->
+  <script src="script.js"></script>
+
+</body>
+</html>
