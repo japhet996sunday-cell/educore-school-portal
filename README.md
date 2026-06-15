@@ -59,7 +59,7 @@ Just open `index.html` in your browser.
 
 ### Mobile Responsive View
 
-![Mobile Responsive View](screenshots/mobile-responsive.png)
+![Mobile Responsive View](screenshots/Mobile-responsive.png)
 
 
 
