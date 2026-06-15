@@ -22,6 +22,47 @@ EduCore is a responsive school management system built with HTML, CSS, and Vanil
 ## 📦 How to Run
 Just open `index.html` in your browser.
 
+
+## Screenshots
+
+### Dashboard
+
+![Dashboard](screenshots/dashboard-view.png)
+
+### Students Management
+
+![Students Management](screenshots/students-page.png)
+
+### Teachers Management
+
+![Teachers Management](screenshots/teachers-management.png)
+
+### Courses Management
+
+![Courses Management](screenshots/course-catalog.png)
+
+### Results Management
+
+![Results Management](screenshots/results-page.png)
+
+### Attendance Tracker
+
+![Attendance Tracker](screenshots/attendance-tracker.png)
+
+### Settings
+
+![Settings](screenshots/settings-page.png)
+
+### Dark Mode
+
+![Dark Mode](screenshots/dark-mode.png)
+
+### Mobile Responsive View
+
+![Mobile Responsive View](screenshots/mobile-responsive.png)
+
+
+
 ##  Repository link
 https://github.com/japhet996sunday-cell/educore-school-portal
 
